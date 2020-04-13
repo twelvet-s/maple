@@ -1,0 +1,39 @@
+spring:
+  # 应用名称
+  application:
+    name: twelvet-gateway
+  # cloud配置
+  cloud:
+    # nacos
+    nacos:
+      config:
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 指定yaml配置格式
+        file-extension: yml
+        # 命名空间
+        namespace: twelvet-dev
+        # 配置组
+        group: DEFAULT_GROUP
+    gateway:
+      discovery:
+        locator:
+          # 开启服务名称小写匹配
+          lowerCaseServiceId: true
+          # 开启动态创建路由（不用每个都写死）
+          enabled: true
+      # 路由
+      routes:
+        # 路由的ID，建议配合服务名
+        - id: twelvet-system
+          # 匹配后提供服务的路由地址
+          uri: lb://twelvet-system
+          # 断言，路径匹配的进行路由
+          predicates:
+              # 必须配置filters才能生效
+            - Path=/system/**
+          filters:
+            # 转发请求时去除路由前缀（system）
+            - StripPrefix=1
+
+

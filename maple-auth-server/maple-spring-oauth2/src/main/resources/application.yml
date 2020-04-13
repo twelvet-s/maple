@@ -1,0 +1,6 @@
+# 项目相关配置
+twelvet:
+  # 服务名称
+  name: wind-leaf
+  # 版本
+  version: 1.0.0
